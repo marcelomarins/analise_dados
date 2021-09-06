@@ -45,11 +45,9 @@ dt_feature = dataf.iloc[:,:-1]
 dt_target = dataf.iloc[:, -1]
 
 
-#complementando dados faltantes com a média da coluna (coluna por coluna)
-#dt_feature['ph'] = dt_feature['ph'].mask(dt_feature['ph'] == 0).fillna(dt_feature['ph'].mean())
 dt_feature = dt_feature.mask(dt_feature == 0).fillna(dt_feature.mean())
 
-print(dt_feature.head(10))
+
 
 
 
@@ -90,6 +88,11 @@ def analise_dispersao_dados():
 
 
 def informacoes_basicas():
+
+    print("Primeiras amostras\n")
+    print(dt_feature.head(10))
+    print("\n")
+
     # Apresentando informações das classes
     print(dataf['Potability'].value_counts())
     print('\n Valores faltantes: \n', dataf.isnull().sum())
@@ -112,7 +115,7 @@ def informacoes_basicas():
 
 def grafico_seaborn_classes():
     # Com Seaborn
-    sns.factorplot('Potability', data=dataf, kind='count')
+    sns.catplot('Potability', data=dataf, kind='count')
     plt.ylabel('Variaveis')
     plt.title("Balanceamento das classes")
     plt.show()
@@ -120,7 +123,7 @@ def grafico_seaborn_classes():
 
 
 
-##grafico de relacao#############################
+##correlação - Análise#############################
 
 
 
@@ -139,9 +142,9 @@ def correlacao():
 # Boxplot
 def boxplot_todos():
     #Observamos uma grande diferenca de Valores da feature Solids das demais
-    f, ax = plt.subplots(figsize=(11, 15))
+    f, ax = plt.subplots(figsize=(20, 20))
     ax.set_facecolor('#120A8F')
-    ax.set(xlim=(-0.5, 1000))
+    ax.set(xlim=(-0.5, 10000))
     plt.ylabel('Variaveis')
     plt.title("Overview Dataset")
     ax = sns.boxplot(data=dataf, orient='v', palette='Set2')
@@ -149,7 +152,7 @@ def boxplot_todos():
 
 
 def boxplot_sem_feature_Solids():
-    f, ax = plt.subplots(figsize=(11, 15))
+    f, ax = plt.subplots(figsize=(20, 20))
     ax.set_facecolor('#120A8F')
     ax.set(xlim=(-0.5, 1000))
     plt.ylabel('Variaveis')
@@ -161,7 +164,7 @@ def boxplot_sem_feature_Solids():
 def boxplot_feature_solids():
     f, ax = plt.subplots(figsize=(11, 15))
     ax.set_facecolor('#120A8F')
-    ax.set(xlim=(-0.5, 1000))
+    ax.set(xlim=(-0.5, 10000))
     plt.ylabel('Variaveis')
     plt.title("Overview Dataset")
     ax = sns.boxplot(data=dataf['Solids'], orient='v', palette='Set2')
@@ -572,7 +575,7 @@ def analise_SVM():
 #dados_estatisticos('Solids')
 #dados_estatisticos('Conductivity')
 #informacoes_basicas()
-grafico_seaborn_classes()
+#grafico_seaborn_classes()
 #analise_dispersao_dados()
 #boxplot_sem_feature_Solids()
 #boxplot_feature_solids()
