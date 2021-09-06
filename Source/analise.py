@@ -12,7 +12,6 @@ from sklearn.linear_model import Perceptron
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
 from sklearn.naive_bayes import GaussianNB
-import seaborn as sns 
 import statistics
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
@@ -408,40 +407,7 @@ def analise_KNN():
      print('O valor de k otimizado é = {} com valor {} de acurácia'.format(grid.best_params_, grid.best_score_))
 
 
-def analise_Perceptron():
-     X_train, X_test, y_train, y_test = train_test_split(dt_feature, dt_target, test_size=0.3)
 
-     print('Divisão dos dados\n')
-     print('X_train: ',len(X_train))
-     print('X_test: ',len(X_test))
-     print('y_train: ',len(y_train))
-     print('y_test: ',len(y_test))
-
-     amostras_c0 = len(y_train.loc[y_train == 0])
-     amostras_c1 = len(y_train.loc[y_train == 1])
-     relacao_amostrasc0 = (amostras_c0/(len(y_train)))*100
-     relacao_amostrasc1= (amostras_c1/len(y_train))*100
-
-     print('Quantidade de amostras da classe 0 (Não potável): ',amostras_c0 )
-     print('Relação entre amostras da classe 0 e o total de amostras: %.2f%% ' % relacao_amostrasc0)
-     print('Quantidade de amostras da classe 1 (Potável): ', amostras_c1)
-     print("Relação entre amostras da classe 1 e o total de amostras: %.2f%% " % relacao_amostrasc1)
-    
-
-     percep = Perceptron()
-     percep.fit(X_train, y_train)
-     percep.predictions = percep.predict(X_test)
-
-   
-
-     #verificando a taxa de acerto para cada classe.
-     print(metrics.classification_report(y_test, percep.predictions))
-     
-     np.set_printoptions(precision=2)
-
-     #imprimindo a matriz de confusão  
-     plot_confusion_matrix(y_test, percep.predictions, normalize= True,title='Normalized confusion matrix')
-     plt.show()
 
 def analise_Naive_Bayes():
      X_train, X_test, y_train, y_test = train_test_split(dt_feature, dt_target, test_size=0.3)
@@ -518,42 +484,6 @@ def analise_Arvore_Decisao():
      plt.show()
 
 
-def analise_SVM():
-     X_train, X_test, y_train, y_test = train_test_split(dt_feature, dt_target, test_size=0.3)
-
-     print('Divisão dos dados\n')
-     print('X_train: ',len(X_train))
-     print('X_test: ',len(X_test))
-     print('y_train: ',len(y_train))
-     print('y_test: ',len(y_test))
-
-     amostras_c0 = len(y_train.loc[y_train == 0])
-     amostras_c1 = len(y_train.loc[y_train == 1])
-     relacao_amostrasc0 = (amostras_c0/(len(y_train)))*100
-     relacao_amostrasc1= (amostras_c1/len(y_train))*100
-
-     print('Quantidade de amostras da classe 0 (Não potável): ',amostras_c0 )
-     print('Relação entre amostras da classe 0 e o total de amostras: %.2f%% ' % relacao_amostrasc0)
-     print('Quantidade de amostras da classe 1 (Potável): ', amostras_c1)
-     print("Relação entre amostras da classe 1 e o total de amostras: %.2f%% " % relacao_amostrasc1)
-   
-
-     vm =  svm.SVC()
-
-     vm.fit(X_train, y_train)
-     vm.predictions = vm.predict(X_test)
-
-   
-
-     #verificando a taxa de acerto para cada classe.
-
-   #  print(metrics.classification_report(y_test, vm.predictions))
-     
-     np.set_printoptions(precision=2)
-     #imprimindo a matriz de confusão
-    
-     plot_confusion_matrix(y_test, vm.predictions, normalize= True,title='Normalized confusion matrix')
-     plt.show()
 
 
 
@@ -561,14 +491,12 @@ def analise_SVM():
 
 
 
+###chamada das funções##########################################################################################3
 #Relacao_algoritmos_ML()
-#analise_Perceptron()
 #boxplot_todos()
 #correlacao()
-#analise_KNN()
-#analise_Perceptron()
+analise_KNN()
 #analise_Naive_Bayes()
-#analise_SVM()#################
 #analise_Arvore_Decisao()
 #dados_estatisticos('ph')
 #dados_estatisticos('Chloramines')
